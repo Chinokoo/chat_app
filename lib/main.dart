@@ -1,4 +1,5 @@
 import 'package:chat_app/pages/login_page.dart';
+import 'package:chat_app/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,11 +11,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: LoginPage(),
-      ),
+      home: LoginPage(),
+      theme: lightMode,
     );
   }
 }
