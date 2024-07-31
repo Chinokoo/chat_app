@@ -1,4 +1,5 @@
-import 'package:chat_app/auth/firebase_auth_service.dart';
+import 'package:chat_app/errors/error_handler.dart';
+import 'package:chat_app/services/auth/firebase_auth_service.dart';
 import 'package:chat_app/components/button.dart';
 import 'package:chat_app/components/text_field.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
         authService.signUpWithEmailAndPassword(
             emailController.text, passwordController.text);
       } catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(e.toString()),
-          ),
-        );
+        ErrorHandler.showError(context, 'An error occurred: ${e.toString()}');
       }
     } else {
       showDialog(
