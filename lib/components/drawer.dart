@@ -3,7 +3,8 @@ import 'package:chat_app/components/drawer_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class TheDrawer extends StatefulWidget {
-  const TheDrawer({super.key});
+  final String owner;
+  const TheDrawer({super.key, required this.owner});
 
   @override
   State<TheDrawer> createState() => _TheDrawerState();
@@ -31,6 +32,16 @@ class _TheDrawerState extends State<TheDrawer> {
               //spacing
               const SizedBox(
                 height: 100,
+              ),
+              Text(
+                widget.owner,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               //icon
               Icon(

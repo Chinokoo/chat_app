@@ -1,10 +1,12 @@
 import 'package:chat_app/services/auth/auth_gate.dart';
 import 'package:chat_app/pages/settings_page.dart';
-import 'package:chat_app/themes/light_mode.dart';
+import 'package:chat_app/themes/dark_mode.dart';
+import 'package:chat_app/themes/theme_provider.dart';
 import 'package:chat_app/utils/check_network.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,9 +20,13 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    runApp(const MainApp());
+    runApp(
+      ChangeNotifierProvider(
+          create: (context) => ThemeProvider(), child: MainApp()),
+    );
   } else {
-    runApp(const OfflineApp());
+    runApp(ChangeNotifierProvider(
+        create: (context) => ThemeProvider(), child: const OfflineApp()));
   }
 }
 
@@ -32,7 +38,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const AuthGate(),
-      theme: lightMode,
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      darkTheme: darkMode,
+      themeMode: ThemeMode.system,
       routes: {
         "/settings": (context) => const SettingsPage(),
       },

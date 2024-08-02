@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     //logging in
     try {
       await authService.signInWithEmailAndPassword(
-          emailController.text, passwordController.text);
+          context, emailController.text, passwordController.text);
     } catch (e) {
       ErrorHandler.showError(context, 'An error occurred: ${e.toString()}');
     }
@@ -36,63 +36,64 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              //todo: login interface.
-              //spacings
-              const SizedBox(height: 100),
-              //logo
-              Icon(Icons.chat,
-                  size: 80, color: Theme.of(context).colorScheme.primary),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                //spacings
+                const SizedBox(height: 100),
+                //logo
+                Icon(Icons.chat,
+                    size: 80, color: Theme.of(context).colorScheme.primary),
 
-              //spacings
-              const SizedBox(height: 50),
-              //welcome back message
-              Text(
-                "Welcome Back to LChat!",
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              //spacings
-              const SizedBox(height: 20),
-              //email field
-              TheTextField(
-                controller: emailController,
-                hinText: "Email",
-                obscureText: false,
-              ),
-              //password field
-              TheTextField(
-                  controller: passwordController,
-                  hinText: "Password",
-                  obscureText: true),
-              //spacings.
-              const SizedBox(height: 10),
-              //login button
-              TheButton(
-                buttonText: "login",
-                onTap: () => login(context),
-              ),
+                //spacings
+                const SizedBox(height: 50),
+                //welcome back message
+                Text(
+                  "Welcome Back to LChat!",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                //spacings
+                const SizedBox(height: 20),
+                //email field
+                TheTextField(
+                  controller: emailController,
+                  hinText: "Email",
+                  obscureText: false,
+                ),
+                //password field
+                TheTextField(
+                    controller: passwordController,
+                    hinText: "Password",
+                    obscureText: true),
+                //spacings.
+                const SizedBox(height: 10),
+                //login button
+                TheButton(
+                  buttonText: "login",
+                  onTap: () => login(context),
+                ),
 
-              //register now
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have an account? "),
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: const Text(
-                      "Register here",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              )
-            ],
+                //register now
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account? "),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        "Register here",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

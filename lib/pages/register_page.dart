@@ -29,20 +29,18 @@ class _RegisterPageState extends State<RegisterPage> {
     if (passwordController.text == confirmPasswordController.text) {
       try {
         authService.signUpWithEmailAndPassword(
-            emailController.text, passwordController.text);
+            context, emailController.text, passwordController.text);
       } catch (e) {
         ErrorHandler.showError(context, 'An error occurred: ${e.toString()}');
       }
     } else {
-      showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(
-          title: Text("Passwords do not match!"),
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("passwords do not match"),
+          backgroundColor: Colors.red,
         ),
       );
     }
-
-    //todo: add error handling.
   }
 
   @override
@@ -53,7 +51,6 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Center(
           child: Column(
             children: [
-              //todo: login interface.
               //spacings
               const SizedBox(height: 100),
               //logo
